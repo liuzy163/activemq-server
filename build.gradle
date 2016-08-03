@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'spring-boot'
+
+version = '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+project.ext {
+  springBootVersion="1.4.0.RELEASE"
+  amqVersion="5.13.4"
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://maven.springframework.org/release/" }
+}
+
+jar{
+	from {
+	    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
+dependencies {
+  //SpringBoot activemq starter only exposes limited configuration. It is good for VM based broker but not for advanced ones	
+  //compile("org.springframework.boot:spring-boot-starter-activemq:$springBootVersion")
+  compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+  compile(group: 'org.apache.activemq', name: 'activemq-broker', version: "$amqVersion")
+  compile(group: 'org.apache.activemq', name: 'activemq-spring', version: "$amqVersion")
+  compile(group: 'org.apache.activemq', name: 'activemq-jdbc-store', version: "$amqVersion")
+  compile(group: 'org.apache.activemq', name: 'activemq-pool', version: "$amqVersion")
+  compile(group: 'org.apache.activemq', name: 'activemq-kahadb-store', version: "$amqVersion")
+  compile(group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.1.1')
+}
