@@ -36,10 +36,12 @@ dependencies {
   //SpringBoot activemq starter only exposes limited configuration. It is good for VM based broker but not for advanced ones	
   //compile("org.springframework.boot:spring-boot-starter-activemq:$springBootVersion")
   compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+  compile("org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion")
   compile(group: 'org.apache.activemq', name: 'activemq-broker', version: "$amqVersion")
   compile(group: 'org.apache.activemq', name: 'activemq-spring', version: "$amqVersion")
   compile(group: 'org.apache.activemq', name: 'activemq-jdbc-store', version: "$amqVersion")
   compile(group: 'org.apache.activemq', name: 'activemq-pool', version: "$amqVersion")
   compile(group: 'org.apache.activemq', name: 'activemq-kahadb-store', version: "$amqVersion")
   compile(group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.1.1')
+  runtime("com.microsoft.sqlserver:sqljdbc4:4.0.2206.100")
 }
